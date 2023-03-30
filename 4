@@ -1,0 +1,30 @@
+#include<iostream>
+using std::cout;
+using std::endl;
+
+bool mean_arithmetic(const int a[],const int N, double* p){
+    if (N<=0)
+        return false;
+    double s=0;
+    for(int k = 0; k<N; ++k){
+        s = s+a[k];
+    }
+    *p = s / N; //разыменование(обращение к объекту, который живет по адресу "p")
+    return true;
+}
+void demo(){
+    int a[] = {};
+    const int total = sizeof(a)/sizeof(a[0]);
+    double result = 0;
+    bool q = mean_arithmetic(a, total, &result);
+    if (q){
+        cout << result << endl;
+    }
+    else{
+        cout << "undefined" << endl;
+    }
+}
+int main(){
+    demo();
+    return 0;
+}
