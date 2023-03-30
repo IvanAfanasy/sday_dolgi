@@ -1,0 +1,56 @@
+#include <iostream>
+#include <ctime>
+using std::cout;
+using std::endl;
+using std::cin;
+//const int nr = 5; 
+const int NC = 3;
+//функция принимает на вход двумерный статический массив, каждая строка массива длиной NC 
+void print_2d_array(const int a[][NC], const int nr){
+    for(int k = 0; k < nr; ++k){ //распечатываем еще одну строку
+        for(int j = 0; j < NC; ++j){
+            cout << a[k][j] << "  ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+//сортировка двумерного массива, самый маленький попадает в начало первой строки и т.д.
+void sort_2d_array(int a[][NC], const int nr){
+    while(true){ //сортировка пузырьком
+        bool order_ok = true;
+        //обходим двумерный массив и ищем нарушение порядка
+        for(int k = 0; k < nr * NC-1; ++k){
+            int r1 = k/NC;
+            int c1 = k%NC;
+            int r2 = (k+1) / NC;
+            int c2 = (k+1) % NC;
+            //проверим, нет ли нарушения порядка
+            if(a[r1][c1] > a[r2][c2]){
+                int t = a[r1][c1];
+                a[r1][c1] = a[r2][c2];
+                a[r2][c2] = t;
+                order_ok = false;
+            }
+        }
+        if(order_ok) break;
+    }
+}
+void demo(){
+    int a[][NC] = { {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0} };
+    const int nr = sizeof(a)/sizeof(a[0]);
+    for(int k = 0; k < nr; ++k){
+        for(int j = 0; j < NC; ++j){
+            cout << "A[" << k+1 << "][" << j+1 << "] = ";
+            cin >> a[k][j];
+        }
+    }
+    
+    print_2d_array(a, nr);
+    sort_2d_array(a, nr);
+    print_2d_array(a, nr);
+}
+int main(){
+    demo();
+    return 0;
+}
