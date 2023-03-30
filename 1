@@ -1,0 +1,28 @@
+#include <iostream>
+using std::cout;
+using std::endl;
+
+int index_of_min(const int a[], const int N){
+    int q = -1;
+    for(int k = 0; k < N; ++k){
+        if (q == -1 || a[k] < a[q])
+            q = k;
+    }
+    return q;
+}
+void demo_1(){
+    int a[] = {321, 543, 624, 6162 ,798, 564789, 882, 1, -34, 523};
+    const int total = sizeof(a)/sizeof(a[0]);
+    int j = index_of_min(a, total);
+    if (j == -1)
+        cout << "not found" << endl;
+    else
+        {
+        cout << "index of min elem = " << j << endl; 
+        cout << "min elem = " << a[j] << endl;
+        }
+}
+int main(){
+    demo_1();
+    return 0;
+}
