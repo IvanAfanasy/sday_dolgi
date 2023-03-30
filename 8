@@ -1,0 +1,57 @@
+#include <iostream>
+#include <ctime>
+
+using std::cout;
+using std::cin;
+using std::endl;
+
+void print_2d_array(const int* ar, const int NR, const int NC){
+    for(int k = 0; k < NR; ++k){
+        for(int j = 0; j < NC; ++j){
+            int x = ar[k * NC + j];
+            if(x < 10){
+                cout << " ";
+            }
+            cout << x << "  ";
+        }
+        cout << "\n";
+    }
+    cout << "\n";
+}
+void changeDiag(int* ar, int N){
+    //идем по строкам
+    for(int k = 0; k < N; ++k){
+        int j1 = k; //индекс элемента главной диагонали
+        int j2 = N - 1 - k; 
+        //обмен
+        int t = ar[k * N + j1];
+        ar[k * N + j1] = ar[k * N + j2];
+        ar[k * N + j2] = t;
+    }
+}
+
+void demo(){
+    srand(time(0)); //перезагрузка генератора псевдослучайных чисел
+    int N = 0;
+    cout << "input N: ";
+    cin >> N;
+    int* a = new int[N * N]; //выделяем динамическую память
+    //заполняем случайными числами
+    for(int k = 0; k < N * N; ++k){
+        a[k] = rand()%100;
+    }
+    print_2d_array(a, N, N);
+    changeDiag(a, N);
+    print_2d_array(a, N, N);
+    //освобождаем динамическую память
+    delete[] a;
+}
+int main(){
+    demo();
+    return 0;
+}
+
+//1 4 6 8      8 4 6 1
+//5 8 9 0      5 9 8 0
+//1 5 7 3  ->  1 7 5 3
+//5 9 8 2      2 9 8 5
