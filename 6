@@ -1,0 +1,51 @@
+#include <iostream>
+#include <ctime>
+using std::cout;
+using std::endl;
+using std::cin;
+bool duplicates_detected(const int a[], const int N){
+    for(int k = 0; k < N; ++k){
+        for(int j = k + 1; j < N; ++j){
+            if (a[k] == a[j]){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+void print_array(const int a[], const int total){
+    cout << "[";
+    for(int k = 0; k < total; ++k){
+        cout << a[k];
+        if(k < total - 1){
+            cout << ", ";
+        }
+    }
+    cout << "]" << endl;
+}
+void demo(){
+    srand(time(0));
+    int N = 0;
+    cout << "input size array: ";
+    cin >> N;
+    //запрашиваем память под динамический массив размером N * 4 байт
+     //а - адрес начала этого блока памяти
+    int* a = new int[N];
+    for(int k = 0; k < N; ++k){
+        a[k] = rand()%100;
+    }
+    print_array(a, N);
+    bool dup_det = duplicates_detected(a, N);
+    if(dup_det){
+        cout << "duplicates found" << endl;
+    }
+    else{
+        cout << "duplicates not found" << endl; 
+    }
+    //освобождаем память
+    delete[] a;
+}
+int main(){
+    demo();
+    return 0;
+}
