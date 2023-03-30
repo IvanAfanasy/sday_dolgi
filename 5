@@ -1,0 +1,60 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using std::cout;
+using std::endl;
+using std::cin;
+
+void remove_duplicates(int a[], int* pN){
+    int total_unique = 0;
+    for(int k = 0; k < *pN; ++k){ //обходим элементы в диапазоне [0..total_unique-1] и проверяем, что элемент #k не дубликат
+        bool not_clone = true;
+        for(int j=0; j < total_unique; ++j){
+            if (a[k]==a[j]){
+                not_clone = false;
+                break;
+            }
+        }
+        if(not_clone){
+            a[total_unique] = a[k];
+            total_unique += 1;
+        }
+    }
+    *pN = total_unique;
+}
+
+void print_array(const int a[], const int total){
+    cout << "[";
+    for(int k = 0; k < total; ++k){
+        cout << a[k];
+        if (k < total - 1){
+            cout << ", ";
+        }
+    }
+    cout << "]\n";
+}
+void demo(){
+    srand(time(0));
+    int total = 0;
+    while (true){
+        cout << "input start size: ";
+        cin >> total;
+        if (total < 1 || total > 10000){
+            cout << "too big or too small, try again\n";
+        }
+        else break;
+    }
+    int* a = new int[total];
+    for(int k = 0; k < total; ++k){
+        a[k] = rand()%100;
+    }
+    print_array(a, total);
+    remove_duplicates(a, &total);
+    print_array(a, total);
+    cout << "new size: " << total;
+    delete[] a;
+}
+int main(){
+    demo();
+    return 0;
+}
