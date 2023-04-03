@@ -1,0 +1,51 @@
+#include <iostream>
+#include <ctime>
+
+using std::cout;
+using std::cin;
+using std::endl;
+
+void insertion_sort(int a[], const int N){
+    for(int i = 1; i < N; ++i){
+        int t = a[i];
+        int j = i;
+        while((j > 0) && (a[j-1] > t)){
+            a[j] = a[j-1];
+            --j;
+        }
+        a[j] = t;
+    }
+}
+void print_array(const int a[], const int N){
+    cout << "[";
+    for(int k = 0; k < N; ++k){
+        cout << a[k];
+        if (k < N-1){
+            cout << ", ";
+        }
+    }
+    cout << "]\n";
+}
+void demo(){
+    srand(time(0));
+    int N = 0;
+    cout << "input size of array: ";
+    cin >> N;
+    int *a = new int[N];
+    for(int j = 0; j < N; ++j){
+        a[j] = rand()%100;
+    }
+    
+    print_array(a, N);
+    clock_t t1 = clock();
+    insertion_sort(a, N);
+    clock_t t2 = clock();
+    double dt = (t2 - t1) * 1.0 / CLOCKS_PER_SEC;
+    cout << dt << endl;
+    print_array(a, N);
+    delete[] a;
+}
+int main(){
+    demo();
+    return 0;
+}
